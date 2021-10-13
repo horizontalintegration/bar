@@ -1,0 +1,14 @@
+name: Bar
+type: theme
+description: 'Bootstrap base theme'
+core_version_requirement: '^8.9 || ^9'
+'base theme': classy
+libraries:
+  - bar/global-styling
+  - bar/javascript
+regions:
+  header: Header
+  content: 'Main content'
+  sidebar_first: 'Sidebar first'
+  sidebar_second: 'Sidebar second'
+  footer: Footer

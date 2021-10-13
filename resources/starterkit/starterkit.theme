@@ -1,0 +1,14 @@
+name: STARTERKIT
+type: theme
+description: 'Bar subtheme'
+core_version_requirement: '^8.9 || ^9'
+'base theme': bar
+libraries:
+- starterkit/global-styling
+- starterkit/javascript
+regions:
+header: Header
+content: 'Main content'
+sidebar_first: 'Sidebar first'
+sidebar_second: 'Sidebar second'
+footer: Footer
