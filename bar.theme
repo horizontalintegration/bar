@@ -24,6 +24,8 @@ function bar_theme_suggestions_page_alter(array &$suggestions, array $variables)
     $node_type = $node->getType();
     $suggestions[] = 'page__' . $node_type;
   }
+}
+
 /**
  * Override the core theme suggestions for taxonomy so they match
  * the structure of node suggestions.
@@ -46,4 +48,43 @@ function bar_theme_suggestions_taxonomy_term_alter(array &$suggestions, array $v
 
   return $suggestions;
 }
+
+/**
+ * Add Section name as class to layout and bootstrap classes for column widths.
+ */
+function bar_preprocess_layout(&$variables) {
+  // Label class.
+  if (isset($variables['settings']['label'])) {
+    if (!isset($variables['attributes']['class'])) {
+      $variables['attributes']['class'] = [];
+    }
+    $label_class = HTML::getClass($variables['settings']['label']);
+    $variables['attributes']['class'][] = "section-label-$label_class";
+  }
+
+  // Bootstrap row and column classes.
+  $variables['attributes']['class'][] = 'row';
+  if (isset($variables['settings']['column_widths'])) {
+    $mapping = [
+        '25' => 'col-md-3',
+        '33' => 'col-md-4',
+        '34' => 'col-md-4',
+        '50' => 'col-md-6',
+        '66' => 'col-md-8',
+        '67' => 'col-md-8',
+        '75' => 'col-md-9',
+    ];
+    $column_names = [
+        'first',
+        'second',
+        'third',
+        'fourth',
+    ];
+    $widths = explode("-", $variables['settings']['column_widths']);
+    foreach ($widths as $delta => $width) {
+      if (isset($variables['region_attributes'][$column_names[$delta]])) {
+        $variables['region_attributes'][$column_names[$delta]]->addClass($mapping[$width]);
+      }
+    }
+  }
 }
